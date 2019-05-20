@@ -1,0 +1,35 @@
+{
+  "name": "node-project-boilerplate",
+  "version": "1.0.0",
+  "description": "A base for Node projects, with linters and testing scripts already built in",
+  "author": "DWP Digital",
+  "license": "ISC",
+  "engines": {
+    "node": "10.15.3"
+  },
+  "scripts": {
+    "compliance": "npm run compliance:lint",
+    "compliance:lint": "eslint --ignore-path .gitignore .",
+    "pipeline": "npm run compliance && npm run security && npm run tests",
+    "security": "npm run security:outdated && npm run security:audit",
+    "security:audit": "npm audit || true",
+    "security:outdated": "npm outdated || true",
+    "test": "npm run pipeline",
+    "tests": "npm run tests:coverage",
+    "tests:coverage": "nyc --report-dir .coverage/unit npm run tests:unit",
+    "tests:unit": "mocha \"tests/unit/**/*.spec.js\""
+  },
+  "devDependencies": {
+    "@commitlint/cli": "7.6.1",
+    "@dwp/commitlint-config-base": "1.0.0",
+    "@dwp/eslint-config-base": "2.1.0",
+    "@dwp/eslint-config-mocha": "1.0.0",
+    "@dwp/nyc-config-base": "1.0.0",
+    "chai": "4.2.0",
+    "eslint": "5.16.0",
+    "husky": "2.2.0",
+    "lint-staged": "8.1.6",
+    "mocha": "6.1.4",
+    "nyc": "14.1.1"
+  }
+}
