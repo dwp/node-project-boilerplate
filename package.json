@@ -20,15 +20,15 @@
     "tests:unit": "mocha \"tests/unit/**/*.spec.js\""
   },
   "devDependencies": {
-    "@commitlint/cli": "7.6.1",
-    "@dwp/commitlint-config-base": "1.0.0",
+    "@commitlint/cli": "8.0.0",
+    "@dwp/commitlint-config-base": "1.1.0",
     "@dwp/eslint-config-base": "2.1.0",
     "@dwp/eslint-config-mocha": "1.0.0",
     "@dwp/nyc-config-base": "1.0.0",
     "chai": "4.2.0",
-    "eslint": "5.16.0",
-    "husky": "2.2.0",
-    "lint-staged": "8.1.6",
+    "eslint": "6.0.1",
+    "husky": "3.0.0",
+    "lint-staged": "9.0.2",
     "mocha": "6.1.4",
     "nyc": "14.1.1"
   }
