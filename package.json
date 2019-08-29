@@ -5,7 +5,7 @@
   "author": "DWP Digital",
   "license": "ISC",
   "engines": {
-    "node": "10.15.3"
+    "node": "12.9.1"
   },
   "scripts": {
     "compliance": "npm run compliance:lint",
