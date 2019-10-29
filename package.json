@@ -26,10 +26,10 @@
     "@dwp/eslint-config-mocha": "1.0.0",
     "@dwp/nyc-config-base": "1.0.0",
     "chai": "4.2.0",
-    "eslint": "6.5.1",
+    "eslint": "6.6.0",
     "husky": "3.0.9",
     "lint-staged": "9.4.2",
-    "mocha": "6.2.1",
+    "mocha": "6.2.2",
     "nyc": "14.1.1"
   }
 }
