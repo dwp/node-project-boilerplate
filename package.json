@@ -11,8 +11,9 @@
     "compliance": "npm run compliance:lint",
     "compliance:lint": "eslint --ignore-path .gitignore .",
     "pipeline": "npm run compliance && npm run security && npm run tests",
-    "security": "npm run security:outdated && npm run security:audit",
+    "security": "npm run security:lockfile && npm run security:outdated && npm run security:audit",
     "security:audit": "npm audit || true",
+    "security:lockfile": "lockfile-lint --path package-lock.json --allowed-hosts npm --validate-https",
     "security:outdated": "npm outdated || true",
     "test": "npm run pipeline",
     "tests": "npm run tests:coverage",
@@ -29,6 +30,7 @@
     "eslint": "6.6.0",
     "husky": "3.0.9",
     "lint-staged": "9.4.2",
+    "lockfile-lint": "2.1.6",
     "mocha": "6.2.2",
     "nyc": "14.1.1"
   }
