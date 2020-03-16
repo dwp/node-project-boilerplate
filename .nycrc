@@ -1,6 +1,0 @@
-{
-  "extends": "@dwp/nyc-config-base",
-  "include": [
-    "src/**/*.js"
-  ]
-}
