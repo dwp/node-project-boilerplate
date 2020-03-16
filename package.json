@@ -18,7 +18,7 @@
     "test": "npm run pipeline",
     "tests": "npm run tests:coverage",
     "tests:coverage": "nyc --report-dir .coverage/unit npm run tests:unit",
-    "tests:unit": "mocha \"tests/unit/**/*.spec.js\""
+    "tests:unit": "mocha \"tests/unit/**/*.test.js\""
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
