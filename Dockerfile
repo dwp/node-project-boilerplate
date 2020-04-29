@@ -4,19 +4,29 @@ LABEL application="node-project-boilerplate"
 LABEL maintainer="DWP Digital"
 LABEL version="0.1.0"
 
-RUN apk add --update --no-cache tini=0.18.0-r0 && mv "$(command -v tini)" /usr/local/bin/
+RUN apk add --update --no-cache tini=0.18.0-r0 \
+    ca-certificates=20191127-r1 \
+    curl=7.67.0-r0
+
+RUN mv "$(command -v tini)" /usr/local/bin/
+
+ARG PROXY_CA_CERT
+RUN echo "$PROXY_CA_CERT" > /usr/local/share/ca-certificates/proxy_ca.crt
+RUN update-ca-certificates --verbose
 
 WORKDIR /opt/harden
 
-ADD https://raw.githubusercontent.com/dwp/packer-infrastructure/master/docker-builder/scripts/base/harden.sh harden.sh
+RUN curl -SL https://raw.githubusercontent.com/dwp/packer-infrastructure/master/docker-builder/scripts/base/harden.sh > harden.sh
 
-RUN chmod +x /opt/harden/harden.sh && sh /opt/harden/harden.sh && rm /opt/harden/harden.sh
+RUN chmod +x /opt/harden/harden.sh \
+    && sh /opt/harden/harden.sh \
+    && rm -rf /opt/harden
 
 USER node
 
-WORKDIR /home/node/application
+WORKDIR /home/node/app
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm ci --only=production
 
