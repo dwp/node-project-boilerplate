@@ -1,6 +1,9 @@
+*.config.js
+*.conf.js
 .coverage
 .dockerignore
 .editorconfig
+.env*
 .eslintrc.js
 .git
 .gitattributes
@@ -11,10 +14,9 @@
 .nycrc
 .nyc_output
 .scanner
-CHANGELOG.md
-commitlint.config.js
-LICENSE.md
-lint-staged.config.js
+.vscode
+*.md
+Dockerfile
 node_modules
-README.md
+sonar-project.properties
 tests

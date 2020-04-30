@@ -1,36 +1,37 @@
 FROM node:12.16.2-alpine@sha256:5646d1e5bc470500414feb3540186c02845db0e0e1788621c271fbf3a0c1830d
 
-LABEL application="node-project-boilerplate"
-LABEL maintainer="DWP Digital"
+LABEL application="node-boilerplate-project"
+LABEL maintainer="DWP Digital Engineering Practice"
 LABEL version="0.1.0"
+
+ARG PROXY_CA_CERT
 
 RUN apk add --update --no-cache tini=0.18.0-r0 \
     ca-certificates=20191127-r1 \
-    curl=7.67.0-r0
+    curl=7.67.0-r0 \
+    &&  mv "$(command -v tini)" /usr/local/bin/
 
-RUN mv "$(command -v tini)" /usr/local/bin/
+RUN echo "$PROXY_CA_CERT" > /usr/local/share/ca-certificates/proxy_ca.crt \
+    && update-ca-certificates --verbose
 
-ARG PROXY_CA_CERT
-RUN echo "$PROXY_CA_CERT" > /usr/local/share/ca-certificates/proxy_ca.crt
-RUN update-ca-certificates --verbose
+RUN mkdir -p /root/harden \
+    && curl -SL https://raw.githubusercontent.com/dwp/packer-infrastructure/master/docker-builder/scripts/base/harden.sh > /root/harden/harden.sh
 
-WORKDIR /opt/harden
-
-RUN curl -SL https://raw.githubusercontent.com/dwp/packer-infrastructure/master/docker-builder/scripts/base/harden.sh > harden.sh
-
-RUN chmod +x /opt/harden/harden.sh \
-    && sh /opt/harden/harden.sh \
-    && rm -rf /opt/harden
+RUN chmod +x /root/harden/harden.sh \
+    && sh /root/harden/harden.sh \
+    && rm -rf /root/harden
 
 USER node
 
+RUN mkdir -p /home/node/app
+
 WORKDIR /home/node/app
 
-COPY package.json package-lock.json ./
+COPY --chown=node:node package.json package-lock.json ./
 
-RUN npm ci --only=production
+RUN npm ci --only=production --no-optional --no-audit
 
-COPY . .
+COPY --chown=node:node . .
 
 ENTRYPOINT [ "tini", "--" ]
 
