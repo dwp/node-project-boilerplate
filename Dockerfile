@@ -1,4 +1,4 @@
-FROM node:lts-alpine@sha256:12b2154fb459fa5f42c54771524609db041e7ef3465935d0ca82940d2d72669d as node12
+FROM node:lts-alpine@sha256:dc9641311155f990b713df6ab2751c9dc487bd64dd66fb3a25dce673fd4167cc as node12
 
 LABEL application="node-boilerplate-project"
 LABEL maintainer="DWP Digital Engineering Practice"
